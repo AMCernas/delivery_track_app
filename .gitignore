@@ -27,3 +27,12 @@ build/
 # Editor
 .vscode/
 .idea/
+
+
+node_modules/
+.env
+.env.local
+.env.development
+.env.production
+/prisma/dev.db
+/prisma/dev.db-journal
