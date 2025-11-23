@@ -1,0 +1,29 @@
+# Node
+node_modules
+npm-debug.log
+yarn-debug.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+debug.log
+
+# Prisma (only if using SQLite)
+prisma/dev.db
+
+# Build output
+dist/
+build/
+.cache/
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
