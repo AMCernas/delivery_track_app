@@ -1,38 +1,69 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import prisma from "../prisma/prismaClient.js";
 
-export const register = async (req, res) => {
-    const {name, email, password}  = req.body;
+export async function register(req, res, prisma) {
+  try {
+    const { email, password, name } = req.body;
 
-    try{
-        const hashed = await bcrypt.hash(password, 10);
-        const user = await prisma.user.create({
-            data: {name, email, password: hashed}
-        });
+    const existing = await prisma.user.findUnique({
+      where: { email }
+    });
 
-        res.json({message: "User registered successfully", userId: user.id});
-    } catch (err) {
-        res.status(400).json({error: error.message});
+    if (existing) {
+      return res.status(400).json({ message: "Email already registered" });
     }
-};
 
-export const login = async (req, res) => {
-    const {email, password} = req.body;
+    const hashed = await bcrypt.hash(password, 10);
 
-    try {
-        const user = await prisma.user.findUnique({where: {email}});
-        if(!user) return res.status(400).json({message: "user does not exist"});
+    const user = await prisma.user.create({
+      data: { email, password: hashed, name }
+    });
 
-        const match = await bcrypt.compare(password, user.password);
-        if(!match) return res.status(400).json({message: "invalid credentials"});
+    return res.status(201).json({
+      message: "User registered",
+      user: { id: user.id, email: user.email, name: user.name }
+    });
 
-        const token = jwt.sign(
-            {id: user.id, email: user.email}.emailprocess.env.JWT_SECERET,{expiresIn: "7d"}
-        );
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message
+    });
+  }
+}
 
-        res.json({token, user});
-    } catch (err) {
-        res.status(400).json({error: err.message});
-    }
+export async function login(req, res, prisma) {
+  try {
+    const { email, password } = req.body;
+
+    const user = await prisma.user.findUnique({
+      where: { email }
+    });
+
+    if (!user)
+      return res.status(400).json({ message: "Invalid credentials" });
+
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (!isValid)
+      return res.status(400).json({ message: "Invalid credentials" });
+
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    return res.json({
+      message: "Login successful",
+      token,
+      user: { id: user.id, email: user.email, name: user.name }
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      message: "Server error",
+      error: error.message
+    });
+  }
 }

@@ -1,8 +1,11 @@
-import {Router} from "express"
-import {register, login} from "../controllers/auth.controller.js"
+import { Router } from "express";
+import { register, login } from "../controllers/auth.controller.js";
 
-const router = Router();
+export default function authRoutes(prisma) {
+  const router = Router();
 
-router.post("/register", register);
-router.post("/login", login);
-export default router;
+  router.post("/register", (req, res) => register(req, res, prisma));
+  router.post("/login", (req, res) => login(req, res, prisma));
+
+  return router;
+}
