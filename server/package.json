@@ -2,15 +2,21 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --watch src --ext js --exec node src/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "prisma:dbpush": "prisma db push",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^7.0.0",
+    "@prisma/client": "^4.16.2",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
@@ -20,6 +26,9 @@
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
-    "prisma": "^7.0.0"
+    "nodemon": "^2.0.22",
+    "prisma": "^4.16.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }

@@ -1,20 +1,32 @@
-import {prismaClient} from "prisma/client";
-import {ENV} from "./env.js"
+import { PrismaClient } from "@prisma/client";
+import { ENV } from "./env.js";
 
-export const prisma = new PrismaClient({
-  datasources: {
+const clientOptions = {};
+if (ENV.DATABASE_URL) {
+  clientOptions.datasources = {
     db: {
       url: ENV.DATABASE_URL,
     },
-  },
-});
+  };
+}
 
+let prisma;
+// Prevent creating new client during hot-reload in development
+if (process.env.NODE_ENV === "development") {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient(clientOptions);
+  }
+  prisma = global.prisma;
+} else {
+  prisma = new PrismaClient(clientOptions);
+}
 
 prisma.$on("error", (e) => {
-    console.error("prisma error:", e)
+  console.error("prisma error:", e);
 });
-
 
 process.on("beforeExit", async () => {
-    await prisma.$disconect()
+  await prisma.$disconnect();
 });
+
+export default prisma;
