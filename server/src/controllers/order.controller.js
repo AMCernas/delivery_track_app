@@ -1,118 +1,107 @@
-export async function getOrders(req, res, prisma) {
-  try {
-    const userId = req.user.id;
+import prisma from "../prisma/client.js";
 
+// CREATE Order
+export const createOrder = async (req, res) => {
+  const { title, details, status } = req.body;
+
+  try {
+    const newOrder = await prisma.order.create({
+      data: {
+        title,
+        details,
+        status,
+        userId: req.user.id,
+      },
+    });
+
+    res.status(201).json(newOrder);
+  } catch (err) {
+    console.error("Create Order Error:", err);
+    res.status(500).json({ message: "Error creating order" });
+  }
+};
+
+// GET Orders (only user's orders)
+export const getOrders = async (req, res) => {
+  try {
     const orders = await prisma.order.findMany({
-      where: { userId }
+      where: { userId: req.user.id },
+      orderBy: { createdAt: "desc" },
     });
 
-    return res.json({ orders });
-
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
+    res.json(orders);
+  } catch (err) {
+    console.error("Get Orders Error:", err);
+    res.status(500).json({ message: "Error fetching orders" });
   }
-}
+};
 
-export async function createOrder(req, res, prisma) {
+// GET Order by ID (only user's order)
+export const getOrderById = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const userId = req.user.id;
-    const { product, total } = req.body;
-
-    const order = await prisma.order.create({
-      data: { product, total, userId }
-    });
-
-    return res.status(201).json({
-      message: "Order created",
-      order
-    });
-
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
-  }
-}
-
-export async function getOrderById(req, res, prisma) {
-  try {
-    const userId = req.user.id;
-    const { id } = req.params;
-
     const order = await prisma.order.findFirst({
-      where: { id: Number(id), userId }
+      where: { id: Number(id), userId: req.user.id },
     });
 
-    if (!order)
+    if (!order) {
       return res.status(404).json({ message: "Order not found" });
+    }
 
-    return res.json({ order });
-
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
+    res.json(order);
+  } catch (err) {
+    console.error("Get Order Error:", err);
+    res.status(500).json({ message: "Error fetching order" });
   }
-}
+};
 
-export async function updateOrder(req, res, prisma) {
+// UPDATE Order
+export const updateOrder = async (req, res) => {
+  const { id } = req.params;
+  const { title, details, status } = req.body;
+
   try {
-    const userId = req.user.id;
-    const { id } = req.params;
-    const { product, total } = req.body;
-
-    const existing = await prisma.order.findFirst({
-      where: { id: Number(id), userId }
+    const order = await prisma.order.findFirst({
+      where: { id: Number(id), userId: req.user.id },
     });
 
-    if (!existing)
+    if (!order) {
       return res.status(404).json({ message: "Order not found" });
+    }
 
-    const updated = await prisma.order.update({
+    const updatedOrder = await prisma.order.update({
       where: { id: Number(id) },
-      data: { product, total }
+      data: { title, details, status },
     });
 
-    return res.json({
-      message: "Order updated",
-      order: updated
-    });
-
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
+    res.json(updatedOrder);
+  } catch (err) {
+    console.error("Update Order Error:", err);
+    res.status(500).json({ message: "Error updating order" });
   }
-}
+};
 
-export async function deleteOrder(req, res, prisma) {
+// DELETE Order
+export const deleteOrder = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const userId = req.user.id;
-    const { id } = req.params;
-
-    const existing = await prisma.order.findFirst({
-      where: { id: Number(id), userId }
+    const order = await prisma.order.findFirst({
+      where: { id: Number(id), userId: req.user.id },
     });
 
-    if (!existing)
+    if (!order) {
       return res.status(404).json({ message: "Order not found" });
+    }
 
     await prisma.order.delete({
-      where: { id: Number(id) }
+      where: { id: Number(id) },
     });
 
-    return res.json({ message: "Order deleted" });
-
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
+    res.json({ message: "Order deleted" });
+  } catch (err) {
+    console.error("Delete Order Error:", err);
+    res.status(500).json({ message: "Error deleting order" });
   }
-}
+};

@@ -19,6 +19,7 @@ model User {
 
 model Order {
   id          Int    @id @default(autoincrement())
+  title       String
   details     String
   status      String
   createdAt   DateTime @default(now())
