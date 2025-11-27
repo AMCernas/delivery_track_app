@@ -19,8 +19,15 @@ export async function register(req, res, prisma) {
       data: { email, password: hashed, name }
     });
 
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
     return res.status(201).json({
       message: "User registered",
+      token,
       user: { id: user.id, email: user.email, name: user.name }
     });
 

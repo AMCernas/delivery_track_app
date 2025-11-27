@@ -1,7 +1,5 @@
-import prisma from "../prisma/client.js";
-
 // CREATE Order
-export const createOrder = async (req, res) => {
+export const createOrder = async (req, res, prisma) => {
   const { title, details, status } = req.body;
 
   try {
@@ -21,8 +19,8 @@ export const createOrder = async (req, res) => {
   }
 };
 
-// GET Orders (only user's orders)
-export const getOrders = async (req, res) => {
+// GET Orders
+export const getOrders = async (req, res, prisma) => {
   try {
     const orders = await prisma.order.findMany({
       where: { userId: req.user.id },
@@ -36,8 +34,8 @@ export const getOrders = async (req, res) => {
   }
 };
 
-// GET Order by ID (only user's order)
-export const getOrderById = async (req, res) => {
+// GET Order by ID
+export const getOrderById = async (req, res, prisma) => {
   const { id } = req.params;
 
   try {
@@ -57,7 +55,7 @@ export const getOrderById = async (req, res) => {
 };
 
 // UPDATE Order
-export const updateOrder = async (req, res) => {
+export const updateOrder = async (req, res, prisma) => {
   const { id } = req.params;
   const { title, details, status } = req.body;
 
@@ -83,7 +81,7 @@ export const updateOrder = async (req, res) => {
 };
 
 // DELETE Order
-export const deleteOrder = async (req, res) => {
+export const deleteOrder = async (req, res, prisma) => {
   const { id } = req.params;
 
   try {
