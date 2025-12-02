@@ -4,12 +4,14 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Dashboard from "./pages/Dashboard"
 import ProtectedRoute from "./components/ProtectedRoute"
+import OrdersPage from "./pages/OrdersPage"
 
 function App() {
 
   return (
-    <AuthProvider>  
-      <BrowserRouter> 
+    <BrowserRouter> 
+      <AuthProvider>  
+      
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
@@ -24,10 +26,19 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <OrdersPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
-     
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
+    
   )
 }
 

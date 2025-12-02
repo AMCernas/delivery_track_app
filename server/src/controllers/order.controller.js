@@ -1,6 +1,6 @@
 // CREATE Order
 export const createOrder = async (req, res, prisma) => {
-  const { title, details, status } = req.body;
+  const { title, details, status = "pending" } = req.body;
 
   try {
     const newOrder = await prisma.order.create({
@@ -8,7 +8,7 @@ export const createOrder = async (req, res, prisma) => {
         title,
         details,
         status,
-        userId: req.user.id,
+        userId: req.userId,
       },
     });
 
@@ -23,7 +23,7 @@ export const createOrder = async (req, res, prisma) => {
 export const getOrders = async (req, res, prisma) => {
   try {
     const orders = await prisma.order.findMany({
-      where: { userId: req.user.id },
+      where: { userId: req.userId },
       orderBy: { createdAt: "desc" },
     });
 
@@ -40,7 +40,7 @@ export const getOrderById = async (req, res, prisma) => {
 
   try {
     const order = await prisma.order.findFirst({
-      where: { id: Number(id), userId: req.user.id },
+      where: { id: Number(id), userId: req.userId },
     });
 
     if (!order) {
@@ -61,7 +61,7 @@ export const updateOrder = async (req, res, prisma) => {
 
   try {
     const order = await prisma.order.findFirst({
-      where: { id: Number(id), userId: req.user.id },
+      where: { id: Number(id), userId: req.userId },
     });
 
     if (!order) {
@@ -86,7 +86,7 @@ export const deleteOrder = async (req, res, prisma) => {
 
   try {
     const order = await prisma.order.findFirst({
-      where: { id: Number(id), userId: req.user.id },
+      where: { id: Number(id), userId: req.userId },
     });
 
     if (!order) {
