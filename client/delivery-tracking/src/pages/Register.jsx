@@ -74,7 +74,7 @@ export default function Register() {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
-        <button type="submit" disabled={loading}>{loading ? "Registrando..." : "Ingresar"}</button>
+        <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? "Registrando..." : "Ingresar"}</button>
       </form>
     </div>
   );

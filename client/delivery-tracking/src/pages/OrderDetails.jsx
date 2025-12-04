@@ -73,7 +73,7 @@ export default function OrderDetails() {
 
   return (
     <div className="order-details">
-      <button className="back-button" onClick={() => navigate("/orders")}>
+      <button className="btn btn-ghost btn-sm" onClick={() => navigate("/orders")}>
         ← Volver
       </button>
 
@@ -113,13 +113,7 @@ export default function OrderDetails() {
             {statusOptions.map((status) => (
               <button
                 key={status}
-                className={`status-button ${order.status === status ? "active" : ""}`}
-                style={{
-                  backgroundColor:
-                    order.status === status ? statusColors[status] : "#e5e7eb",
-                  cursor: updating ? "not-allowed" : "pointer",
-                  opacity: updating ? 0.6 : 1,
-                }}
+                className={`btn btn-sm status-button ${order.status === status ? "active" : ""}`}
                 onClick={() => updateStatus(status)}
                 disabled={updating || order.status === status}
               >
@@ -131,7 +125,7 @@ export default function OrderDetails() {
 
         <div className="order-danger">
           <button
-            className="delete-button"
+            className="btn btn-danger"
             onClick={deleteOrder}
             disabled={updating}
           >

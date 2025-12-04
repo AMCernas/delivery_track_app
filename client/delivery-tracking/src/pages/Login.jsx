@@ -58,7 +58,7 @@ export default function Login() {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
-        <button type="submit" disabled={loading}>{loading ? "Iniciando sesión..." : "Ingresar"}</button>
+        <button type="submit" className="btn btn-primary" disabled={loading}>{loading ? "Iniciando sesión..." : "Ingresar"}</button>
       </form>
     </div>
   );

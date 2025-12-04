@@ -41,7 +41,7 @@ export default function OrderForm({ onCreate }) {
         required
       />
 
-      <button type="submit" disabled={loading}>
+      <button type="submit" className="btn btn-success" disabled={loading}>
         {loading ? "Creando..." : "Crear pedido"}
       </button>
     </form>

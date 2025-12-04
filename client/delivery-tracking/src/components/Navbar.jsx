@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <nav>
       <span>{user?.name}</span>
-      <button onClick={logout}>Salir</button>
+      <button className="btn btn-ghost btn-sm" onClick={logout}>Salir</button>
     </nav>
   );
 }
