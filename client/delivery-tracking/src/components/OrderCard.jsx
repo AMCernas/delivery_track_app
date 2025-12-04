@@ -10,10 +10,15 @@ export default function OrderCard({ order }) {
     delivered: "#4ade80"
   };
 
+  const handleClick = () => {
+    navigate(`/orders/${order.id}`);
+  };
+
   return (
     <div
       className="order-card"
-      onClick={() => navigate(`/orders/${order.id}`)}
+      onClick={handleClick}
+      style={{ cursor: "pointer" }}
     >
       <div className="order-header">
         <h3>{order.title}</h3>

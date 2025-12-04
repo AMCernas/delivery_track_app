@@ -40,3 +40,173 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Order Details Styles */
+.order-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #e5e7eb;
+}
+
+.order-details-container {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.order-details-container h1 {
+  margin-top: 0;
+  color: #1f2937;
+}
+
+.order-info {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+}
+
+.info-field {
+  margin-bottom: 1.5rem;
+}
+
+.info-field:last-child {
+  margin-bottom: 0;
+}
+
+.info-field label {
+  font-weight: 600;
+  color: #374151;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.info-field p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.details-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.status-badge-large {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.order-actions {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #f0f9ff;
+  border-radius: 6px;
+}
+
+.order-actions h2 {
+  margin-top: 0;
+  color: #1f2937;
+  text-align: left;
+}
+
+.status-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.status-button {
+  padding: 0.75rem 1rem;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.status-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.status-button.active {
+  border-color: #1f2937;
+}
+
+.status-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.order-danger {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.delete-button {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover:not(:disabled) {
+  background-color: #dc2626;
+}
+
+.delete-button:disabled {
+  background-color: #fca5a5;
+  cursor: not-allowed;
+}
+
+.order-details-loading,
+.order-details-error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: #6b7280;
+}
+
+.order-details-error {
+  color: #dc2626;
+}
+
+/* Order Card clickable */
+.order-card {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.order-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
