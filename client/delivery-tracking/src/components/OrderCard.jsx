@@ -1,17 +1,23 @@
 import { useNavigate } from "react-router-dom";
 
-export default function OrderCard({ order }) {
+export default function OrderCard({ order, maxChars = 100 }) {
   const navigate = useNavigate();
 
   const statusColors = {
     pending: "#facc15",
     preparing: "#60a5fa",
     delivering: "#fb923c",
-    delivered: "#4ade80"
+    delivered: "#4ade80",
   };
 
   const handleClick = () => {
     navigate(`/orders/${order.id}`);
+  };
+
+  // Truncate long descriptions for card preview
+  const excerpt = (text, max = maxChars) => {
+    if (!text) return "";
+    return text.length > max ? text.slice(0, max).trimEnd() + "..." : text;
   };
 
   return (
@@ -30,13 +36,9 @@ export default function OrderCard({ order }) {
         </span>
       </div>
 
-      <p className="order-details">
-        {order.details}
-      </p>
+      <p className="order-details">{excerpt(order.details)}</p>
 
-      <small className="order-date">
-        {new Date(order.createdAt).toLocaleString()}
-      </small>
+      <small className="order-date">{new Date(order.createdAt).toLocaleString()}</small>
     </div>
   );
 }

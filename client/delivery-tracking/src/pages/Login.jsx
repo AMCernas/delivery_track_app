@@ -45,7 +45,7 @@ export default function Login() {
     <div>
       <h1>Login</h1>
       {error && <div style={{ color: "red" }}>{error}</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login-form">
         <input
           type="email"
           placeholder="Email"

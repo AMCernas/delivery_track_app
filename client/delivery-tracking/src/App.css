@@ -68,12 +68,26 @@ nav button{background:transparent;border:none;color:var(--muted-text);cursor:poi
   display:flex;flex-direction:column;gap:12px;
   border:1px solid rgba(2,6,23,0.04);
 }
+.order-card{overflow:hidden}
 .order-card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
 /* make sure cards don't overlap the order form CTA */
 .order-card{z-index:1}
 .order-header{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .status-badge{padding:6px 10px;border-radius:999px;font-weight:700;font-size:0.85rem}
 .order-details{font-size:0.95rem;color:var(--muted-text);margin:0}
+
+/* Card-specific description behaviour: limit lines and align left */
+.order-card .order-details{
+  text-align:left;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2; 
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:normal; 
+  overflow-wrap:anywhere; 
+  word-break:break-word;
+}
 .order-date{color:var(--muted-text);font-size:0.8rem}
 
 /* Forms */
@@ -84,6 +98,26 @@ input[type="text"],input[type="email"],input[type="password"],textarea{
 }
 textarea{min-height:100px}
 input:focus,textarea:focus{box-shadow:0 10px 30px rgba(2,6,23,0.08);border-color:var(--accent)}
+
+/* Login inputs: hover/focus use accent blue to match login button */
+.login-form input[type="email"], .login-form input[type="password"], .login-form input[type="text"], .login-form textarea{
+  transition:box-shadow .12s ease,border-color .12s ease;
+}
+.login-form input:hover:not(:disabled), .login-form textarea:hover:not(:disabled),
+.login-form input:focus:not(:disabled), .login-form textarea:focus:not(:disabled){
+  box-shadow:0 10px 30px rgba(37,99,235,0.12); /* blue shadow */
+  border-color:var(--accent-blue);
+}
+
+/* Order form inputs: hover/focus use accent green to match create button */
+.order-form input[type="text"], .order-form textarea{
+  transition:box-shadow .12s ease,border-color .12s ease;
+}
+.order-form input:hover:not(:disabled), .order-form textarea:hover:not(:disabled),
+.order-form input:focus:not(:disabled), .order-form textarea:focus:not(:disabled){
+  box-shadow:0 10px 30px rgba(22,163,74,0.12); 
+  border-color:var(--accent-green);
+}
 
 /* Modern Button System */
 button{font-family:inherit}
