@@ -23,13 +23,11 @@ export default function OrderList() {
   }, []);
 
   if (loading) {
-    return(
-        <div className="order-list">
-            <div className="skeleton-card"></div>
-            <div className="skeleton-card"></div>
-            <div className="skeleton-card"></div>
-        </div>
-    ) 
+    return (
+      <div className="order-list">
+        <p>Cargando pedidos...</p>
+      </div>
+    )
   }
 
   return (

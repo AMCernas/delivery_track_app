@@ -206,10 +206,6 @@ button[type="submit"].btn-success:active:not(:disabled), .btn-success:active:not
 .status-delivering{background:#fff4e6;color:#7a2f00}
 .status-delivered{background:#ecfdf5;color:#14532d}
 
-/* Utilities */
-.container{display:flex;gap:16px;align-items:flex-start}
-.center{display:flex;align-items:center;justify-content:center}
-
 /* Responsive tweaks */
 @media (max-width:700px){
   #root{padding:20px}
@@ -217,7 +213,6 @@ button[type="submit"].btn-success:active:not(:disabled), .btn-success:active:not
 }
 
 /* small helpers for CTA in nav */
-.nav-cta{padding:8px 12px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700}
 
 /* Dashboard styles */
 .dashboard{padding:0}

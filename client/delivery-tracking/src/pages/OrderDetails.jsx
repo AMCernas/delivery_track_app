@@ -64,11 +64,11 @@ export default function OrderDetails() {
   const statusOptions = ["pending", "preparing", "delivering", "delivered"];
 
   if (loading) {
-    return <div className="order-details-loading">Cargando...</div>;
+    return <div>Cargando...</div>;
   }
 
   if (!order) {
-    return <div className="order-details-error">Orden no encontrada</div>;
+    return <div>Orden no encontrada</div>;
   }
 
   return (
