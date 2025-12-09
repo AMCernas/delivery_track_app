@@ -1,6 +1,6 @@
 # Guía de Desarrollo - Delivery Tracking App
 
-Documentación técnica para desarrolladores que trabajan con la aplicación.
+Documentación técnica
 
 ## 🏗️ Arquitectura General
 
